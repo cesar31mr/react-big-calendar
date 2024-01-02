@@ -47,7 +47,7 @@ export default function App() {
             <Calendar
             localizer={localizer}
             events={events}
-            views={['month', 'week', 'day']}
+            // views={['month', 'week', 'day']}
             // view="day"
             // date={dayjs('2024-01-01T11:00:00').toDate()}
             toolbar={true}
@@ -59,7 +59,6 @@ export default function App() {
               dayHeaderFormat: date => dayjs(date).format('DD/MM/YYYY')
             }}
             components={components}
-
             messages={
               {
                 next: 'Siguiente',
