@@ -59,6 +59,21 @@ export default function App() {
               dayHeaderFormat: date => dayjs(date).format('DD/MM/YYYY')
             }}
             components={components}
+
+            messages={
+              {
+                next: 'Siguiente',
+                previous: 'Anterior',
+                today: 'Hoy',
+                month: 'Mes',
+                week: 'Semana',
+                day: 'Dia',
+                date: 'Fecha',
+                time: 'Hora',
+                event: 'Evento',
+                showMore: total => `+ Ver más (${total})`
+              }
+            }
             />
         </div>
     );
