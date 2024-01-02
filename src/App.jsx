@@ -49,7 +49,7 @@ export default function App() {
             events={events}
             views={['month', 'week', 'day']}
             // view="day"
-            date={dayjs('2024-01-01T11:00:00').toDate()}
+            // date={dayjs('2024-01-01T11:00:00').toDate()}
             toolbar={true}
             defaultView="month"
             min={dayjs('2024-01-01T08:00:00').toDate()}
