@@ -45,7 +45,7 @@ export default function App() {
     return (
         <div style={{height: '95vh', width: '70vw'}}>
             <Calendar
-            localizer={localizer} 
+            localizer={localizer}
             events={events}
             views={['month', 'week', 'day']}
             // view="day"
@@ -53,7 +53,7 @@ export default function App() {
             toolbar={true}
             defaultView="month"
             min={dayjs('2024-01-01T08:00:00').toDate()}
-            max={dayjs('2024-01-01T19:00:00').toDate()}
+            max={dayjs('2034-01-01T19:00:00').toDate()}
             // style={{ height: "500px", width: "500px" }}
             formats={{
               dayHeaderFormat: date => dayjs(date).format('DD/MM/YYYY')
