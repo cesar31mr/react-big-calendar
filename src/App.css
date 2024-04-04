@@ -12,3 +12,8 @@
   background: wheat;
   padding: 40px;
 }
+
+.nav-item {
+  flex: 1 1 auto;
+  text-align: center;
+}
