@@ -26,7 +26,6 @@ export default function MyBigCalendar() {
 
     const components = {
         event: (props) => {
-            console.log(props);
             return (
                 <div
                     style={{
@@ -39,6 +38,18 @@ export default function MyBigCalendar() {
                     <div>{props.title}</div>
                     <div>{props.start}</div>
                     <div>{props.end}</div>
+                    <div>
+                        <button
+                            onClick={() => console.log("Editar evento", props)}
+                        >
+                            Editar
+                        </button>
+                        <button
+                            onClick={() => console.log("Eliminar evento", props)}
+                        >
+                            Eliminar
+                        </button>
+                    </div>
                 </div>
             );
         },
