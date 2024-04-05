@@ -1,15 +1,21 @@
 import React from "react";
 import rutas from "./routeconfig";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { logout } from "../services/user_services";
 
 export default function Menu() {
+    const navigate = useNavigate();
+    const onClickLogout = () => {
+        logout();
+        navigate("/");
+        window.location.reload();
+    }
     return(
         <nav className="relative flex flex-wrap items-center content-between py-3 px-4 text-white bg-gray-900 navbar-fixed-top">
             <div className="container max-w-full mx-auto sm:px-4">
-                <div className="hidden flex-grow items-center">
+                <div className="flex-grow items-center">
                     <ul className="flex flex-wrap list-reset pl-0 me-auto mb-2 lg:mb-0">
-                        {
+                        { rutas ?
                             rutas.filter(ruta => ruta.visible).map((ruta, index) => {
                                 return(
                                     <li className="nav-item" key={index}>
@@ -18,10 +24,13 @@ export default function Menu() {
                                         </NavLink>
                                     </li>
                                 )
-                            })
+                            }) : null
                         }
-                        <li className="nav-item" onClick={() => logout}>
-                            Cerrar Sesión
+                        <li className="nav-item text-sm py-0">
+                            {/* Botón para cerrar sesión */}
+                            <button className="inline-block py-2 px-4 no-underline" onClick={() => onClickLogout()}>
+                                Cierra sesión
+                            </button>
                         </li>
                     </ul>
                 </div>

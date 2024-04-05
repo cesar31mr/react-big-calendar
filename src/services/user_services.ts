@@ -3,25 +3,27 @@ import { UserCreation } from "../models/user_model";
 import { urlSignUp, urlLogin } from "../utils/endpoints";
 import { useNavigate } from "react-router";
 
-function getIdentity(){
-    const identity = JSON.parse(localStorage.getItem('identity')!);
-    if(identity){
+function getIdentity() {
+    const identity = JSON.parse(localStorage.getItem("identity")!);
+    if (identity) {
         return identity;
-    }else{
+    } else {
         return null;
     }
 }
 
-function getToken(){
-    const token = localStorage.getItem('token');
-    if(token){
+function getToken() {
+    const token = localStorage.getItem("token");
+    if (token) {
         return token;
-    }else{
+    } else {
         return null;
     }
 }
 
-export async function registrarUsuario(usuario: UserCreation): Promise<boolean> {
+export async function registrarUsuario(
+    usuario: UserCreation
+): Promise<boolean> {
     var result = false;
 
     try {
@@ -42,7 +44,10 @@ export async function registrarUsuario(usuario: UserCreation): Promise<boolean> 
     return result;
 }
 
-export async function loginUser(email: string, password: string): Promise<boolean> {
+export async function loginUser(
+    email: string,
+    password: string
+): Promise<boolean> {
     var result = false;
 
     try {
@@ -68,12 +73,18 @@ export async function loginUser(email: string, password: string): Promise<boolea
     return result;
 }
 
-function logout(){
-    localStorage.removeItem('token');
-    localStorage.removeItem('identity');
+function logout(): boolean {
+    var result = false;
 
-    const navigate = useNavigate();
-    navigate('/');
+    try {
+        localStorage.removeItem("token");
+        localStorage.removeItem("identity");
+        result = true;
+    } catch (error) {
+        throw error;
+    }
+
+    return result;
 }
 
-export {getIdentity, getToken, logout};
+export { getIdentity, getToken, logout };

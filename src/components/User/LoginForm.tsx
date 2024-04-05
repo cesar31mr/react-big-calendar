@@ -3,7 +3,7 @@ import Login from "./Login";
 import React from "react";
 import SignUp from "./SignUp";
 
-export default function UserForm() {
+export default function LoginForm() {
     const [registro, setRegistro] = useState(false);
 
     function Registrar(registrar: boolean) {

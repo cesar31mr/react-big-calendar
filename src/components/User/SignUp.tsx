@@ -1,8 +1,8 @@
 import React from "react";
 import Swal from "sweetalert2";
-import { UserCreation } from "../models/user_model";
-import { validatePassword, validateUser } from "../validation/user_validation";
-import { registrarUsuario } from "../services/user_services";
+import { UserCreation } from "../../models/user_model";
+import { validatePassword, validateUser } from "../../validation/user_validation";
+import { registrarUsuario } from "../../services/user_services";
 
 export default function SignUp({ registrar }) {
     const [nombre, setNombre] = React.useState("");

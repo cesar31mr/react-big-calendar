@@ -1,11 +1,12 @@
-import MyBigCalendar from "../components/MyBigCalendar";
-import UserForm from "../components/UserForm";
+import About from "../components/About/About";
+import MyBigCalendar from "../components/Calendario/MyBigCalendar";
+import LoginForm from "../components/User/LoginForm";
 import Redireccionar from './Redireccionar';
 
 const rutas = [
     {
         path: "/",
-        component: UserForm,
+        component: LoginForm,
         title: "Formulario de Usuario"
     },
     {
@@ -13,6 +14,12 @@ const rutas = [
         component: MyBigCalendar,
         exact: true,
         title: "Calendario",
+        visible: true
+    },
+    {
+        path: "/about",
+        component: About,
+        title: "Acerca de",
         visible: true
     },
     {
