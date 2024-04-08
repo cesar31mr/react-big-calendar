@@ -36,12 +36,22 @@ export function alertaInfo(mensaje: string) {
     });
 }
 
-export function alertaQuestion(mensaje: string) {
-    var result = Swal.fire({
+export async function alertaQuestion(mensaje: string) {
+    var result = false;
+
+    result = await Swal.fire({
         icon: "question",
         title: mensaje,
-        showConfirmButton: false,
-        timer: 1500,
+        showCancelButton: true,
+        showConfirmButton: true,
+        // timer: 1500,
+    }).then((result) => {
+        return result.isConfirmed;
+    }
+    ).catch((error) => {
+        console.log("Error", error);
+        return false;
     });
+
     return result;
 }

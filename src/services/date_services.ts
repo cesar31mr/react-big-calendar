@@ -16,6 +16,23 @@ export async function getDatesByUser(user: string): Promise<DateEntity[]> {
     return result;
 }
 
+export async function updateDate(date: DateEntity): Promise<boolean> {
+    var result = false;
+    try {
+        if (!date) {
+            throw new Error("No se recibió información para actualizar");
+        }
+        
+        var tmp = await axios.put(urlUpdateDate, date);
+        if (tmp.status === 200) {
+            result = true;
+        }
+    } catch (error) {
+        throw error;
+    }
+    return result;
+}
+
 export async function deleteDate(id: string): Promise<boolean> {
     var result = false;
     try {

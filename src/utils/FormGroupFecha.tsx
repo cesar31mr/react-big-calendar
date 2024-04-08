@@ -12,7 +12,7 @@ export default function FormGroupFecha(props: formGroupFechaProps) {
                 className="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
                 name={props.campo}
                 id={props.campo}
-                defaultValue={values[props.campo]?.toLocaleDateString("es-MX")}
+                defaultValue={new Date(values[props.campo]).toISOString().split('T')[0]}
                 onChange={(e) => {
                     const fecha = new Date(e.currentTarget.value + 'T00:00:00');
                     values[props.campo] = fecha;
