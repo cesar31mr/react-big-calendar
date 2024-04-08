@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
 import UserForm from "./UserForm";
 import { UserLogin } from "../../models/user_model";
+import { alertaError } from "../../utils/alertas";
 
 export default function Login({ registrar }) {
 
@@ -14,25 +15,14 @@ export default function Login({ registrar }) {
         if (loginValidation(user.email, user.password)) {
             try {
                 if ((await loginUser(user.email, user.password)) === true) {
-                    //redirect to /calendar
                     navigate("/calendar");
-                    window.location.reload();
+                    // window.location.reload();
                 }
             } catch (error) {
-                Swal.fire({
-                    icon: "error",
-                    title: error.response.data.message ?? "Error al iniciar sesión",
-                    showConfirmButton: false,
-                    timer: 1500,
-                });
+                alertaError(error.response.data.message ?? "Error al iniciar sesión");
             }
         } else{
-            Swal.fire({
-                icon: "error",
-                title: "Datos incorrectos",
-                showConfirmButton: false,
-                timer: 1500,
-            });
+            alertaError("Datos incorrectos")
         }
     };
 

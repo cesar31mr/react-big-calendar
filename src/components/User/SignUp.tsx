@@ -3,6 +3,7 @@ import Swal from "sweetalert2";
 import { UserCreation } from "../../models/user_model";
 import { validatePassword, validateUser } from "../../validation/user_validation";
 import { registrarUsuario } from "../../services/user_services";
+import { alertaError, alertaSuccess, alertaWarning } from "../../utils/alertas";
 
 export default function SignUp({ registrar }) {
     const [nombre, setNombre] = React.useState("");
@@ -17,12 +18,7 @@ export default function SignUp({ registrar }) {
             setEnabled(true);
         } else {
             setEnabled(false);
-            Swal.fire({
-                icon: "error",
-                title: "Contraseñas no coinciden",
-                showConfirmButton: false,
-                timer: 1500,
-            });
+            alertaError("Las contraseñas no coinciden");
         }
     }
 
@@ -37,30 +33,14 @@ export default function SignUp({ registrar }) {
         if (validateUser(newUser!)) {
             try {
                 if(await registrarUsuario(newUser!) === true){
-                    Swal.fire({
-                        icon: "success",
-                        title: "Usuario creado",
-                        showConfirmButton: false,
-                        timer: 1500,
-                    });
-    
+                    alertaSuccess("Usuario creado correctamente");    
                     registrar(false);
                 }
             } catch (error) {
-                Swal.fire({
-                    icon: "error",
-                    title: error.response.data.message ?? "Error al crear usuario",
-                    showConfirmButton: false,
-                    timer: 1500,
-                });
+                alertaError(error.response.data.message ?? "Error al crear usuario")
             }
         } else {
-            Swal.fire({
-                icon: "error",
-                title: "Faltan campos por llenar",
-                showConfirmButton: false,
-                timer: 1500,
-            });
+            alertaWarning("Faltan campos por llenar")
         }
     };
 
