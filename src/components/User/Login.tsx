@@ -16,7 +16,7 @@ export default function Login({ registrar }) {
             try {
                 if ((await loginUser(user.email, user.password)) === true) {
                     navigate("/calendar");
-                    // window.location.reload();
+                    window.location.reload();
                 }
             } catch (error) {
                 alertaError(error.response.data.message ?? "Error al iniciar sesión");
