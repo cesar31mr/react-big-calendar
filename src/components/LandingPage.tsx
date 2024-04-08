@@ -10,17 +10,19 @@ export default function LandingPage() {
             <ErrorBoundary>
                 <Menu />
             </ErrorBoundary>
-            <Routes>
-                {rutas.map((ruta, index) => {
-                    return (
-                        <Route
-                            key={index}
-                            path={ruta.path}
-                            element={<ruta.component />}
-                        />
-                    );
-                })}
-            </Routes>
+            <div className="items-center justify-center flex flex-wrap">
+                <Routes>
+                    {rutas.map((ruta, index) => {
+                        return (
+                            <Route
+                                key={index}
+                                path={ruta.path}
+                                element={<ruta.component />}
+                            />
+                        );
+                    })}
+                </Routes>
+            </div>
         </div>
     );
 }
