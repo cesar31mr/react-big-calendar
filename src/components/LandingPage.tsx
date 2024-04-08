@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ErrorBoundary from "../ErrorBoundary";
 import Menu from "../utils/Menu";
 import rutas from "../utils/routeconfig";
-import { Route, Routes } from "react-router";
+import { Route, Routes, useNavigate } from "react-router";
 
 export default function LandingPage() {
+    const [token, setToken] = React.useState<string | null>();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const tmp = localStorage.getItem("token");
+        setToken(tmp);
+    }, []);
+
     return (
         <div>
             <ErrorBoundary>
-                <Menu />
+                {token ? <Menu /> : <></>}
             </ErrorBoundary>
             <div className="items-center justify-center flex flex-wrap">
                 <Routes>
