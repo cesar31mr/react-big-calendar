@@ -149,7 +149,7 @@ export default function MyBigCalendar() {
             className=" bg-white border-2 border-gray-300 rounded-lg shadow-lg p-2"
         >
             <div className="flex p-2">
-                <Button className="bg-green-300 hover:bg-green-500 text-white font-bold py-2 px-4 rounded" onClick={btnGuardarOnClick}>
+                <Button className="bg-green-700 hover:bg-green-900 text-white font-bold py-2 px-4 rounded" onClick={btnGuardarOnClick}>
                     Nuevo Evento
                 </Button>
             </div>

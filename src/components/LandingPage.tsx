@@ -18,7 +18,7 @@ export default function LandingPage() {
             <ErrorBoundary>
                 {token ? <Menu /> : <></>}
             </ErrorBoundary>
-            <div className="items-center justify-center flex flex-wrap">
+            <div className="items-center justify-center flex flex-wrap p-3">
                 <Routes>
                     {rutas.map((ruta, index) => {
                         return (
