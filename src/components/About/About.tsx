@@ -8,7 +8,7 @@ export default function About() {
             </h1>
             <hr className="mb-10" />
             <p>
-                Esta aplicación fue desarrollada por César Martínez{" "}
+                Esta aplicación fue desarrollada por César Martínez como parte de una serie de prácticas que tienen como fin el crecimiento contínuo en React y Node{" "}
                 <div className="flex items-start">
                     <a
                         className="px-3"
