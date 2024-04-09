@@ -38,9 +38,8 @@ export default function MyBigCalendar() {
         try {
             var tmp = await getDatesByUser(identity._id);
             setDatesEntity(tmp);
-            console.log("Fechas obtenidas", datesEntity);
         } catch (error) {
-            console.log("Error al obtener fechas", error);
+            alertaError(`Error al obtener eventos: ${error}`);
         }
     }
 

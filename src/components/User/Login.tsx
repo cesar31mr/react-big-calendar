@@ -29,9 +29,8 @@ export default function Login({ registrar }) {
     useEffect(() => {
         const identity = getIdentity();
         if (identity) {
-            console.log("Usuario logueado");
-        } else {
-            console.log("Usuario no logueado");
+            navigate("/calendar");
+                    window.location.reload();
         }
     }, []);
 

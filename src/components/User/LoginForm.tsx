@@ -7,7 +7,6 @@ export default function LoginForm() {
     const [registro, setRegistro] = useState(false);
 
     function Registrar(registrar: boolean) {
-        console.log("Registrarse");
         setRegistro(registrar);
     }
 

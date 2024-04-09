@@ -49,7 +49,6 @@ export async function alertaQuestion(mensaje: string) {
         return result.isConfirmed;
     }
     ).catch((error) => {
-        console.log("Error", error);
         return false;
     });
 
