@@ -40,7 +40,7 @@ export default function EventoForm(props: eventoFormProps) {
                             disabled={formikProps.isSubmitting}
                             className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         >
-                            Cancelar
+                            {props.cancelChildren || "Cancelar"}
                         </Button>
                     </div>
                 </Form>
@@ -52,5 +52,6 @@ export default function EventoForm(props: eventoFormProps) {
 interface eventoFormProps {
     modelo: any;
     onSubmit(valores: DateEntity, acciones: FormikHelpers<DateEntity>): void;
+    cancelChildren?: React.ReactNode;
     onCancelar(): void;
 }

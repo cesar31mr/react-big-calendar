@@ -26,6 +26,8 @@ export async function updateDate(date: DateEntity): Promise<boolean> {
         var tmp = await axios.put(urlUpdateDate, date);
         if (tmp.status === 200) {
             result = true;
+        } else {
+            throw new Error("Error al actualizar evento" + JSON.stringify(tmp));
         }
     } catch (error) {
         throw error;

@@ -14,10 +14,12 @@ import {
 import { DateEntity } from "../../models/date_model";
 import {
     alertaError,
+    alertaInfo,
     alertaQuestion,
     alertaSuccess,
 } from "../../utils/alertas";
 import EventoForm from "./EventoForm";
+import { json } from "stream/consumers";
 
 dayjs.locale("es");
 
@@ -39,13 +41,15 @@ export default function MyBigCalendar() {
         }
     }
 
-    const deleteEvent = async (prop) => {
+    const deleteEvent = async (id: string) => {
         try {
             var confirmar = await alertaQuestion("¿Desea eliminar el evento?");
+            alertaInfo(`Confirmado: ${confirmar} - Id: ${id}`)
             if (confirmar) {
-                var deleted: boolean = await deleteDate(prop["event"]._id);
+                var deleted: boolean = await deleteDate(id);
                 if (deleted) {
                     await getDates();
+                    closeModal();
                     alertaSuccess("Evento eliminado");
                 } else {
                     alertaError("Error al eliminar evento");
@@ -62,6 +66,11 @@ export default function MyBigCalendar() {
         setEditEntity(prop);
         setShowModal(true);
     };
+
+    const closeModal = () => {
+        setShowModal(false);
+        setEditEntity({} as DateEntity);
+    }
 
     const editarEvento = async (prop: DateEntity) => {
         prop.start = dayjs(prop.start).toDate();
@@ -91,7 +100,7 @@ export default function MyBigCalendar() {
                         {/* <button onClick={() => btnEditOnClic(props["event"])}>
                             Editar
                         </button> */}
-                        <CiEraser onClick={() => deleteEvent(props)} />
+                        <CiEraser onClick={() => deleteEvent(props["event"]._id)} />
                         {/* <button onClick={() => deleteEvent(props)}>
                             Eliminar
                         </button> */}
@@ -134,9 +143,9 @@ export default function MyBigCalendar() {
                     event: "Evento",
                     showMore: (total) => `+ Ver más (${total})`,
                 }}
-                // onSelectEvent={(slotInfo) => {
-                //     btnEditOnClic(slotInfo);
-                // }}
+                onSelectEvent={(slotInfo) => {
+                    btnEditOnClic(slotInfo);
+                }}
                 // onSelectSlot={(slotInfo) => {
                 //     console.log("Slot Seleccionado", slotInfo);
                 // }}
@@ -155,7 +164,7 @@ export default function MyBigCalendar() {
                                     </h3>
                                     <button
                                         className="p-1 ml-auto bg-transparent border-0 text-black opacity-35 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                                        onClick={() => setShowModal(false)}
+                                        onClick={closeModal}
                                     >
                                         <span className="bg-transparent text-black h-6 w-6 text-2xl block outline-none focus:outline-none">
                                             X
@@ -167,7 +176,8 @@ export default function MyBigCalendar() {
                                     <EventoForm
                                         modelo={editEntity}
                                         onSubmit={editarEvento}
-                                        onCancelar={() => setShowModal(false)}
+                                        cancelChildren="Eliminar"
+                                        onCancelar={() => deleteEvent(editEntity["_id"])}
                                     />
                                 </div>
                             </div>
