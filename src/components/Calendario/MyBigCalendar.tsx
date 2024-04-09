@@ -10,6 +10,7 @@ import {
     getDatesByUser,
     deleteDate,
     updateDate,
+    createDate,
 } from "../../services/date_services";
 import { DateEntity } from "../../models/date_model";
 import {
@@ -20,6 +21,7 @@ import {
 } from "../../utils/alertas";
 import EventoForm from "./EventoForm";
 import { json } from "stream/consumers";
+import Button from "../../utils/Button";
 
 dayjs.locale("es");
 
@@ -27,6 +29,7 @@ export default function MyBigCalendar() {
     const [datesEntity, setDatesEntity] = useState<DateEntity[]>([]);
     const [showModal, setShowModal] = useState(false);
     const [editEntity, setEditEntity] = useState<DateEntity>({} as DateEntity);
+    const [nuevoEvento, setNuevoEvento] = useState(false);
 
     const localizer = dayjsLocalizer(dayjs);
     const identity = getIdentity();
@@ -62,14 +65,40 @@ export default function MyBigCalendar() {
         }
     };
 
+    const btnGuardarOnClick = () => {
+        setEditEntity({
+            title: "",
+            start: new Date(),
+            end: new Date(),
+            user: identity._id,
+        } as DateEntity);
+        setNuevoEvento(true);
+        setShowModal(true);
+    }
+
     const btnEditOnClic = (prop) => {
         setEditEntity(prop);
+        setNuevoEvento(false);
         setShowModal(true);
     };
 
     const closeModal = () => {
         setShowModal(false);
         setEditEntity({} as DateEntity);
+    }
+
+    const guardarEvento = async (prop: DateEntity) => {
+        try {
+            var saved : boolean = await createDate(prop);
+            if(saved){
+                await getDates();
+                alertaSuccess("Evento creado");
+                setShowModal(false);
+            }
+            setNuevoEvento(false);
+        } catch (error) {
+            alertaError("Error al crear evento");
+        }
     }
 
     const editarEvento = async (prop: DateEntity) => {
@@ -117,8 +146,13 @@ export default function MyBigCalendar() {
     return (
         <div
             style={{ height: "95vh", width: "70vw" }}
-            className=" bg-white border-2 border-gray-300 rounded-lg shadow-lg"
+            className=" bg-white border-2 border-gray-300 rounded-lg shadow-lg p-2"
         >
+            <div className="flex p-2">
+                <Button className="bg-green-300 hover:bg-green-500 text-white font-bold py-2 px-4 rounded" onClick={btnGuardarOnClick}>
+                    Nuevo Evento
+                </Button>
+            </div>
             <Calendar
                 localizer={localizer}
                 events={datesEntity}
@@ -160,7 +194,7 @@ export default function MyBigCalendar() {
                                 {/*header*/}
                                 <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
                                     <h3 className="text-3xl font-semibold">
-                                        Editar
+                                        {nuevoEvento ? "Nuevo Evento" : "Editar Evento"}
                                     </h3>
                                     <button
                                         className="p-1 ml-auto bg-transparent border-0 text-black opacity-35 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
@@ -175,9 +209,14 @@ export default function MyBigCalendar() {
                                 <div className="relative p-6 flex-auto">
                                     <EventoForm
                                         modelo={editEntity}
-                                        onSubmit={editarEvento}
+                                        onSubmit={nuevoEvento ? guardarEvento : editarEvento}
                                         cancelChildren="Eliminar"
-                                        onCancelar={() => deleteEvent(editEntity["_id"])}
+                                        onCancelar={() => {
+                                            if(nuevoEvento)
+                                                closeModal();
+                                            else
+                                                deleteEvent(editEntity["_id"])
+                                        }}
                                     />
                                 </div>
                             </div>

@@ -1,6 +1,25 @@
 import axios from "axios";
 import { DateEntity } from "../models/date_model";
-import { urlDeleteDate, urlGetDatesByUser, urlUpdateDate } from "../utils/endpoints";
+import { urlDeleteDate, urlGetDatesByUser, urlSaveDate, urlUpdateDate } from "../utils/endpoints";
+
+export async function createDate(date: DateEntity): Promise<boolean> {
+    var result = false;
+    try {
+        if (!date) {
+            throw new Error("No se recibió información para crear");
+        }
+        
+        var tmp = await axios.post(urlSaveDate, date);
+        if (tmp.status === 200) {
+            result = true;
+        } else {
+            throw new Error("Error al crear evento" + JSON.stringify(tmp));
+        }
+    } catch (error) {
+        throw error;
+    }
+    return result;
+}
 
 export async function getDatesByUser(user: string): Promise<DateEntity[]> {
     var result: DateEntity[] = [];
