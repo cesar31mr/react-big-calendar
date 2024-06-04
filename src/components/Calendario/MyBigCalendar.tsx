@@ -135,8 +135,8 @@ export default function MyBigCalendar() {
 
     return (
         <div
-            style={{ height: "95vh", width: "70vw" }}
-            className=" bg-white border-2 border-gray-300 rounded-lg shadow-lg p-2"
+            style={{ height: "85vh", width: "70vw" }}
+            className=" bg-white border-2 border-gray-300 rounded-lg shadow-lg p-2 m-2 overflow-hidden relative flex flex-col justify-center"
         >
             <div className="flex p-2">
                 <Button className="bg-green-700 hover:bg-green-900 text-white font-bold py-2 px-4 rounded" onClick={btnGuardarOnClick}>
