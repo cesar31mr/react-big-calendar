@@ -46,7 +46,6 @@ export default function MyBigCalendar() {
     const deleteEvent = async (id: string) => {
         try {
             var confirmar = await alertaQuestion("¿Desea eliminar el evento?");
-            alertaInfo(`Confirmado: ${confirmar} - Id: ${id}`)
             if (confirmar) {
                 var deleted: boolean = await deleteDate(id);
                 if (deleted) {
@@ -125,10 +124,6 @@ export default function MyBigCalendar() {
                     <div>{props.title}</div>
                     <div>{props.start}</div>
                     <div>{props.end}</div>
-                    <div className="flex">
-                        <CiEdit onClick={() => btnEditOnClic(props["event"])} />
-                        <CiEraser onClick={() => deleteEvent(props["event"]._id)} />
-                    </div>
                 </div>
             );
         },
@@ -174,9 +169,9 @@ export default function MyBigCalendar() {
                     showMore: (total) => `+ Ver más (${total})`,
                 }}
                 onSelectEvent={(slotInfo) => {
+                    console.log(`Info: ${JSON.stringify(slotInfo)}`)
                     btnEditOnClic(slotInfo);
                 }}
-                // Abrir nuevo evento al hacer clic en un espacio vacío
                 onSelectSlot={(e) => {
                     btnGuardarOnClick(e);
                 }}
