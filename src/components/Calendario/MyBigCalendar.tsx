@@ -64,11 +64,13 @@ export default function MyBigCalendar() {
         }
     };
 
-    const btnGuardarOnClick = () => {
+    const btnGuardarOnClick = (evt?) => {
+        const start = evt.start ?? new Date();
+        const end = dayjs(start).add(1, "hour").toDate();
         setEditEntity({
             title: "",
-            start: new Date(),
-            end: new Date(),
+            start: start,
+            end: end,
             user: identity._id,
         } as DateEntity);
         setNuevoEvento(true);
@@ -125,13 +127,7 @@ export default function MyBigCalendar() {
                     <div>{props.end}</div>
                     <div className="flex">
                         <CiEdit onClick={() => btnEditOnClic(props["event"])} />
-                        {/* <button onClick={() => btnEditOnClic(props["event"])}>
-                            Editar
-                        </button> */}
                         <CiEraser onClick={() => deleteEvent(props["event"]._id)} />
-                        {/* <button onClick={() => deleteEvent(props)}>
-                            Eliminar
-                        </button> */}
                     </div>
                 </div>
             );
@@ -153,6 +149,7 @@ export default function MyBigCalendar() {
                 </Button>
             </div>
             <Calendar
+                selectable={true}
                 localizer={localizer}
                 events={datesEntity}
                 toolbar={true}
@@ -179,11 +176,12 @@ export default function MyBigCalendar() {
                 onSelectEvent={(slotInfo) => {
                     btnEditOnClic(slotInfo);
                 }}
-                // onSelectSlot={(slotInfo) => {
-                //     console.log("Slot Seleccionado", slotInfo);
-                // }}
+                // Abrir nuevo evento al hacer clic en un espacio vacío
+                onSelectSlot={(e) => {
+                    btnGuardarOnClick(e);
+                }}
+
             />
-            {/* Modal */}
             {showModal ? (
                 <>
                     <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
